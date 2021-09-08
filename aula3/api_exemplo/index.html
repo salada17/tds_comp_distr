@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <title>Buscar Alunos</title>
+</head>
+<body>
+    <main>
+        <section class="py-5 text-center container">
+            <div class="container">
+                <form class="row g-3" onsubmit="return procurarUsuario()">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="matricula">Matrícula</label>
+                        <input type="text" class="form-control" id="matricula">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Pesquisar</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="no-results" class="py-5 text-center container d-none">
+            <h4>Nenhum resultado encontrado :/</h4>
+        </section>
+
+        <section id="results-found" class="py-5 text-center container d-none">
+            <h4>Alunos encontrados:</h4>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Matrícula</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+</body>
+
+<script>
+    function procurarUsuario() {
+        document.querySelector('#no-results').classList.add('d-none');
+        document.querySelector('#results-found').classList.add('d-none');
+
+        const nome = document.querySelector('input#nome').value;
+        const matricula = document.querySelector('input#matricula').value;
+        const url = `http://localhost:8000/api/alunos?nome=${nome}&matricula=${matricula}`;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                if (res.alunos.length == 0) {
+                    document.querySelector('#no-results').classList.remove('d-none');
+                    document.querySelector('#results-found').classList.add('d-none');
+                    return;
+                }
+
+                let tableContent = ``;
+
+                res.alunos.map(aluno => {
+                    tableContent +=
+                        `<tr>
+                            <td>${aluno.nome}</td>
+                            <td>${aluno.matricula}</td>
+                        </tr>`;
+                });
+
+                const tbody = document.querySelector('#results-found table tbody');
+                tbody.innerHTML = tableContent;
+
+                document.querySelector('#no-results').classList.add('d-none');
+                document.querySelector('#results-found').classList.remove('d-none');
+            });
+
+        return false;
+    }
+</script>
+</html>

@@ -1,0 +1,37 @@
+1. Qual a ligação que existe entre uma API e a arquitetura REST?
+
+	API é um componente de software do qual pode ser facilmente utilizado e integrado via um conjunto de interfaces e protocolos.
+	Já a arquitetura REST por sua vez é um padrão arquitetural para construção de webservices, se apoiando na comunicação
+	via protocolo HTTP e seus respectivos verbos. Ou seja, a relação entre API e REST é que uma aplicação webservice RESTful 
+	é por sua vez uma API, visto que através dela você é capaz de interagir e executar as mais diversas ações.
+	Por exemplo: consultar usuários, cadastrar/editar um usuário, etc.
+
+2. Descreva o que os métodos abaixo descritos fazem:
+
+	GET: Verbo HTTP utilizado normalmente para realizar consultas, onde por exemplo é possível informar valores através de querystrings.
+
+	POST: Verbo HTTP normalmente utilizado para realizar cadastros através do body da requisição. Existem diversos formatos
+	que podem ser enviados, dependendo do cabeçalho (header), por ex: JSON, form-urlencoded, arquivos, etc.
+
+	PUT: Verbo HTTP utilizado para fazer uma atualização completa. Assim como o POST, diferentes formatos de body podem
+	ser enviados numa requisição. 
+
+	PATCH: Também é utilizado para fazer uma atualização, no entanto uma atualização parcial. Também aceita diferentes
+	formatos enviados pelo body.
+
+	DELETE: Verbo HTTP utilizado para fazer deleções. É muito comum o envio sem um body preenchido na requisição,
+	visto que muitas vezes o objeto que se deseja remoção pode ser informado via parâmetros de url ou via querystring.
+
+3. Cite pelo menos dois grandes serviços que se utilizam do REST para seu funcionamento.
+
+	Facebook e Uber.
+
+4. O que é o JSON? Como funciona?
+
+	JSON é o acrônimo para JavaScript Object Notation e este é uma notação extremamente comum para descrever estruturação
+	de objetos. É formado por propriedades onde cada uma delas possui um respectivo valor ("propriedade": "valor"),
+	sendo que esse último pode ser até mesmo um outro objeto e assim sucessivamente. As linguagens modernas possuem mecanismos
+	embutidos nativos do qual podem transcrever facilmente um JSON para um tipo primitivo, por exemplo: PHP pode converter
+	uma string JSON para um array ou um objeto stdClass, Ruby para um tipo hash e Java para um objeto. JSON também é amplamente
+	utilizado para APIs RESTful, seja para o payload de entrada (informado no body da requisição), seja para saída (response
+	payload).
