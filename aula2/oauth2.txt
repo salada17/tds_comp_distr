@@ -1,0 +1,49 @@
+1. Para que serve e para o que foi criado o protocolo OAuth? Utilize de imagens e exemplos.
+
+    O protocolo OAuth foi criado com o instuito de visar mais segurança nos procedimentos de autenticação e
+    autorização, apoiando-se no protocolo HTTP.
+    Através de sua implementação existe toda uma camada de segurança como a geração de tokens por
+    clients autorizados, por exemplo, onde esses tokens possuem tempo de expiração determinando até quando são
+    válidos.
+    
+    Além disso, é possível "terceirizar" a criação e autenticação de um usuário através desse protocolo.
+    Por exemplo: você pode criar uma conta no site do LinkedIn utilizando a sua conta Google, para isso é apenas necessário
+    autenticar-se na sua conta e aceitar o aplicativo.
+
+2. Descreva o fluxo do protocolo OAuth na versão 2.0. Quais os agentes envolvidos? Qual o fluxo de informação entre estes agentes?
+
+    No fluxo de OAuth2 existem 4 papéis (roles) envolvidos:
+
+    - Client: é a interface que se comunica com o Resource Owner (usuário final).
+    Pode ser tanto uma aplicação web quanto um aplicativo mobile.
+
+    - Resource Owner: é a pessoa detentora dos dados e que pode realizar o concedimento dos mesmos (usuário final).
+    
+    - Resource Server: é a API que provê os dados desses usuários. Ela pode devolver um código que pode ser trocado
+    posteriormente por um token via integração com o Authorization Server.
+
+    - Authorization Server: é a API responsável por autenticação e geração de tokens.
+
+    O fluxo de maneira resumida seria:
+
+    1. Usuário (Resource Owner) acessa o site do LinkedIn (client)
+    2. Usuário seleciona opção de "Fazer login com conta Google"
+    3. Client redireciona para tela de login do Gmail (Resource Server), usuário preenche as suas respectivas credenciais do Gmail
+    4. Em caso de sucesso, o Google pergunta se o usuário permite que o LinkedIn tenha acesso as suas informações
+    5. Usuário autoriza os acessos, nisso um code é gerado pelo Resource Server e o usuário é redirecionado para uma redirect_url configurada previamente para o client (LinkedIn)
+    6. O client pede por um token de acesso informando o code via Authorization Server
+    7. O Authorization Server devolve um token com data de expiração e a partir daí o client tem acesso aos recursos do usuário solicitados anteriomente
+
+
+3. Descreva como este serviço, se mal utilizado, pode trazer problemas de segurança para uma empresa.
+
+    Tendo em vista que uma API que segue o protocolo OAuth2 acaba oferecendo uma "terceirização" dos processos de autenticação e autorização,
+    um client mal intencionado pode agir como o próprio usuário final já que tanto o Resource Server quanto o Authorization Server
+    já o autenticaram e autorizaram previamente. Por exemplo, se um usuário final concede a um client recursos como postar posts,
+    visualizar lista de amigos e email em seu Facebook como se fosse o próprio usuário, um client inidôneo poderia gerar um grande estrago
+    para esse usuário final. Geralmente grandes empresas que implementaram o protocolo possuem um processo rigoroso para o
+    cadastro de um client, justamente para evitar situações como essa.
+
+4. Cite pelo menos 10 serviços, de grandes empresas provedoras de autorização que utilizam, este protocolo.
+    
+    Github, Gitlab, Facebook, LinkedIn, Instagram, Twitter, Google, Pinterest, Discord e PayPal.
