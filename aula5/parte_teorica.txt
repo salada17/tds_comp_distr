@@ -1,0 +1,44 @@
+1. O que é integração contínua em um projeto de software?
+
+    Integração contínua (ou Continuous Integration) é o processo de integrar código de maneira eficiente
+    e automatizada. Nesse processo, onde geralmente é feito embasado em uma ferramenta de controle de versionamento
+    de código (como GitHub ou Bitbucket, por exemplo), é comum ser configurado em etapas (pipelines) onde cada etapa
+    exerce uma função específica. Um CI pode ter etapas como execução de testes unitários, testes de integração,
+    code sniffers e por fim a geração do build, isso é, o artefato consolidado do código fonte pronto para ser migrado
+    em produção (deploy). Tudo isso pode ser configurado de maneira que execute automatizado a nível de um commit ou criação
+    de um pull-request, por exemplo.
+
+Quais ferramentas podem ser usadas para verificar débito técnico?
+
+    Geralmente é utilizado algum gerenciador de tarefas como o Jira, Asana, Trello, entre outros. Nessa ferramenta é
+    possível adicionar cards/issues numa fila (backlog) para priorização de desenvolvimento póstumo.
+
+    Débitos técnicos também podem ser denotados via código através de comentários TODO e FIXME. Algumas IDEs como o
+    Visual Studio, por exemplo, são capazes de apresentar uma lista de tarefas após realizar a análise e encontrar
+    os comentários desses tipos no código fonte.
+
+
+Quais ferramentas podem ser usadas para realizar a integração contínua?
+
+    Você pode se apoiar no GitHub actions para controlar CI/CD; GitLab também, TravisCI, Jenkins, entre
+    muitos outros.
+
+O que é DevOps?
+
+    DevOps é uma cultura no setor de tecnologia onde une o desenvolvimento, operações, qualidade e segurança.
+    Trata-se de unir, bem a grosso modo, a expertise de um desenvolvedor com alguém com expertise em infraestrutura.
+    Um profissional DevOps visa agilizar as entregas de uma empresa providenciando stacks, ambientes e integrações de
+    software. Comumente esses profissionais se apoiam na infraestrutura em cloud, como AWS, GCP e Azure, por exemplo,
+    onde na maioria das vezes toda a infraestrutura pode ser escrita através de código, isso é: criação de virtualização
+    de máquinas, containerização, serviços de banco de dados entre muitos outros podem ser escritos em arquivos de código
+    onde uma vez inseridos na nuvem a cloud cuida de automatizar toda a criação.
+
+    Desse modo, profissionais DevOps trabalham muito em conjunto com desenvolvedores de software, além de também serem
+    responsáveis pela manutenção e zelo de toda a infraestrutura onde as aplicações e serviços de uma empresa executam.
+
+Qual o relacionamento da integração contínua com o conceito de DevOps?
+
+    Justamente por serem aqueles que providenciam a stack, agilidade e ferramentas de integração de código para os
+    desenvolvedores, os DevOps muitas vezes cuidam de criar e configurar todo o CI de maneira que seja transparente para
+    os desenvolvedores, onde estes apenas se preocuparão com o desenvolvimento de features e, após commits/PRs, o CI
+    será disparado garantido uma parte da qualidade de software.
