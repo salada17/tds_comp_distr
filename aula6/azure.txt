@@ -23,3 +23,5 @@ Valores cobrados​
       Por esse motivo, licenças locais do Windows Server e SQL Server podem ser utilizadas, o que deixa a assinatura
       mais barata.
     - Os recursos computacionais são cobrados por minuto.
+    - Valores podem ser cobrados por serviço, onde cada um possui um cálculo específico. Também é possível solicitar
+    cotações a fim de obter preços diferenciados.
