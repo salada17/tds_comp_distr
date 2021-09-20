@@ -20,5 +20,6 @@ Desvantagens​
 Valores cobrados​
 
     - Azure oferece um modo híbrido, onde você pode utilizar da sua própria infra quanto dos serviços da nuvem.
-      Por esse motivo, licenças locais do Windows Server e SQL Server, o que deixa a assinatura mais barata.
+      Por esse motivo, licenças locais do Windows Server e SQL Server podem ser utilizadas, o que deixa a assinatura
+      mais barata.
     - Os recursos computacionais são cobrados por minuto.
