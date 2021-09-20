@@ -1,0 +1,24 @@
+Vantagens
+
+    - Serviços populares são gratuitos por 12 meses e você inicia com um crédito de USD 200,00
+        Ex serviços: máquinas virtuais windows/linux, Postgres/MySQL bd, AKS (kubernetes)
+    - Segundo a própria microsoft, é 5x mais barato do que AWS. No entanto, isso parece um tanto quanto
+    tendencioso, visto que o comparativo feito entre os dois serviços cloud utilizavam produtos Microsoft:
+    VMs com Windows Server e banco de dados SQL Server.
+    - Integração total com Office 365 e Active Directory
+    - Fácil integração com .NET framework
+    - Mais de 95% das empresas do Fortune 500 utilizam Azure
+
+Desvantagens​
+
+    - Serverless functions suportam menos linguagens do que se comparado com seus concorrentes. A AWS dá
+    suporte a escrita em qualquer linguagem, enquanto a Azure limita para linguagens: C#, JS, F#, Java, PowerShell,
+    Python e TypeScript.
+    - Interface pouco intuitiva, aumentando a curva de aprendizado
+    - Pode ficar caro se não gerenciado corretamente.
+​
+Valores cobrados​
+
+    - Azure oferece um modo híbrido, onde você pode utilizar da sua própria infra quanto dos serviços da nuvem.
+      Por esse motivo, licenças locais do Windows Server e SQL Server, o que deixa a assinatura mais barata.
+    - Os recursos computacionais são cobrados por minuto.
