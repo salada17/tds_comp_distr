@@ -1,10 +1,10 @@
-import { body, validationResult } from 'express-validator'
-import { Course } from '../../models/course.js'
-import { Post } from './../../models/post.js'
-import { Student } from './../../models/student.js'
+import { body, validationResult } from 'express-validator';
+import { Course } from '../../models/course.js';
+import { Post } from '../../models/post.js';
+import { Student } from '../../models/student.js';
 
 function postRoutes(router) {
-  createPost(router)
+  createPost(router);
 }
 
 function createPost(router) {
@@ -13,12 +13,12 @@ function createPost(router) {
     body('content').isLength({ min: 3 }),
     body('student_id').isInt(),
     (req, res) => {
-			const errors = validationResult(req)
-			if (!errors.isEmpty()) {
-				return res.status(400).json({ errors: errors.array() })
-			}
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
 
-      let courseId = req.body.course_id
+      let courseId = req.body.course_id;
 
       if (!courseId) {
         // Resolve course by the current student_id
@@ -27,30 +27,30 @@ function createPost(router) {
           include: [
             {
               model: Student,
-              as: 'students'
-            }
-          ]
-        })
+              as: 'students',
+            },
+          ],
+        });
 
-        courseId = course.id
+        courseId = course.id;
       }
 
       try {
         Post.create({
           content: req.body.content,
           studentId: req.body.student_id,
-          courseId: courseId
-        }).then(post => res.status(201).json(post))
+          courseId,
+        }).then((post) => res.status(201).json(post));
       } catch (err) {
-				console.log('error while creating post:', err)
-				
-				res.status(500).json({
-					errors: true,
-					message: 'unknown error'
-				})
+        console.log('error while creating post:', err);
+
+        res.status(500).json({
+          errors: true,
+          message: 'unknown error',
+        });
       }
-    }
-  )
+    },
+  );
 }
 
-export { postRoutes }
+export { postRoutes };

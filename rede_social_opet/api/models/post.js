@@ -1,39 +1,40 @@
-import sequelize from 'sequelize'
-const { DataTypes, Model } = sequelize
-import { db } from './../db.js'
-import { Student } from './student.js'
-import { Course } from './course.js'
+import sequelize from 'sequelize';
+import { db } from '../db.js';
+import { Student } from './student.js';
+import { Course } from './course.js';
+
+const { DataTypes, Model } = sequelize;
 
 class Post extends Model {}
 
 Post.init({
   content: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
   },
   studentId: {
     field: 'student_id',
     type: DataTypes.INTEGER,
     references: {
       model: Student,
-      key: 'id'
-    }
+      key: 'id',
+    },
   },
   courseId: {
     field: 'course_id',
     type: DataTypes.INTEGER,
     references: {
       model: Course,
-      key: 'id'
-    }
-  }
+      key: 'id',
+    },
+  },
 }, {
   sequelize: db,
   modelName: 'Post',
   tableName: 'posts',
   timestamps: true,
   createdAt: 'created_at',
-  updatedAt: 'updated_at'
+  updatedAt: 'updated_at',
 });
 
-export { Post }
+export { Post };
