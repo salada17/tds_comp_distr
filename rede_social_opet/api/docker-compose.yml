@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  db:
+    container_name: rede_social_opet_db
+    image: postgres:latest
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5430:5432"
+
+volumes:
+  pg-data:
