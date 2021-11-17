@@ -1,15 +1,15 @@
-import { studentRoutes } from './student.js';
-import { postRoutes } from './post.js';
+import authRoutes from './auth.js';
+import postRoutes from './post.js';
 
 function routes(router) {
   router.get('/', (req, res) => {
     res.send('Hello World!');
   });
 
-  studentRoutes(router);
+  authRoutes(router);
   postRoutes(router);
 
   return router;
 }
 
-export { routes };
+export default routes;
