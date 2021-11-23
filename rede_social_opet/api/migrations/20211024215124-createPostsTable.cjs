@@ -6,7 +6,13 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true,
       },
+      title: {
+        type: Sequelize.TEXT,
+      },      
       content: {
+        type: Sequelize.TEXT,
+      },
+      url: {
         type: Sequelize.TEXT,
       },
       createdAt: {

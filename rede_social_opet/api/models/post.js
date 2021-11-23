@@ -8,7 +8,15 @@ const { DataTypes, Model } = sequelize;
 class Post extends Model {}
 
 Post.init({
+  title: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
   content: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  url: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
