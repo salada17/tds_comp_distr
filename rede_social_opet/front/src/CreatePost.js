@@ -1,20 +1,13 @@
-import { useNavigate, useParams } from "react-router";
-import {
-  Card,
-  Form,
-  Button
-} from 'react-bootstrap';
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "./authContext";
+import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { Card, Form, Button } from 'react-bootstrap';
+import { AuthContext } from './authContext';
+import { useNavigate } from "react-router-dom";
 
-function Post() {
-  const auth = useContext(AuthContext);
-  const navigate = useNavigate();
-  const params = useParams();
-  const postId = params.postId;
-  const [post, setPost] = useState({});
+function CreatePost() {
   const [courses, setCourses] = useState([]);
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   useEffect(() => {
     axios.get('http://localhost:3001/api/v1/courses', {
@@ -28,19 +21,7 @@ function Post() {
         navigate('/login');
       }
     });
-
-    axios.get(`http://localhost:3001/api/v1/posts/${postId}`, {
-      headers: {
-        'x-access-token': auth.user.token
-      }
-    }).then(resp => {
-      setPost(resp.data.post)
-    }).catch(err => {
-      if ([401, 403].indexOf(err.response.status) !== -1) {
-        navigate('/login');
-      }
-    });
-  }, [postId, auth, navigate]);
+  }, [auth, navigate]);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -54,12 +35,13 @@ function Post() {
       return false;
     }
     
-    axios.put(`http://localhost:3001/api/v1/posts/${postId}`, {title, content, url, course_id: courseId}, {
+    // create a post.
+    axios.post('http://localhost:3001/api/v1/posts', {title, content, url, course_id: courseId}, {
       headers: {
         'x-access-token': auth.user.token
       }
     }).then(resp => {
-      if (resp.status === 200) {
+      if (resp.status === 201) {
         navigate('/posts');
       } else if (resp.status === 401 || resp.status === 403) {
         navigate('/login');
@@ -69,44 +51,42 @@ function Post() {
     }).catch(err => console.log(err));
 
     return false;
-  };
+  }
 
   return (
     <>
-      <div className="d-sm-flex align-items-center justify-content-between mb-4 mt-4">
-        <h1 className="h3 mb-0 text-gray-800">Editar Post</h1>
-      </div>
+      <h1>Novo Post</h1>
 
       <Card>
         <Card.Body>
           <Form method="post" onSubmit={handleFormSubmit}>
             <Form.Group className="mb-3">
               <Form.Label>Curso</Form.Label>
-              <Form.Select name="course_id" value={post.courseId} onChange={e => setPost({...post, ...{ courseId: e.target.value }})}>
+              <Form.Select name="course_id">
                 {courses.map(function(course){
                   return <option key={course.id} value={course.id}>{course.name}</option>;
                 })}
-              </Form.Select>
+              </Form.Select>              
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Título</Form.Label>
-              <Form.Control type="text" name="title" value={post.title || ''} onChange={e => setPost({...post, ...{ title: e.target.value }})} />
+              <Form.Control type="text" name="title" />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>URL</Form.Label>
-              <Form.Control type="url" name="url" value={post.url || ''} onChange={e => setPost({...post, ...{ url: e.target.value }})} />
+              <Form.Control type="url" name="url" />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Conteúdo</Form.Label>
-              <Form.Control as="textarea" rows={3} name="content" value={post.content || ''} onChange={e => setPost({...post, ...{ content: e.target.value }})} />
+              <Form.Control as="textarea" rows={3} name="content" />
             </Form.Group>
 
-            <Button variant="dark" type="submit">Editar</Button>
+            <Button variant="dark" type="submit">Cadastrar</Button>
           </Form>
         </Card.Body>
       </Card>
     </>
-  )
+  );
 }
 
-export default Post;
+export default CreatePost;

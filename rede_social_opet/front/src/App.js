@@ -7,8 +7,11 @@ import Login from './Login';
 import Signup from './Signup';
 import { AuthProvider } from './AuthProvider';
 import RequireAuth from './RequireAuth';
-import Post from './Post';
+import Posts from './Posts';
+import CreatePost from './CreatePost';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Post from './Post';
+import Logout from './Logout';
 
 function App() {
   return (
@@ -18,14 +21,29 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route
-            path="/posts"
-            element={
+          <Route path="/posts" element={
+            <RequireAuth>
+              <Posts />
+            </RequireAuth>
+          }/>
+
+          <Route path="posts/:postId" element={
               <RequireAuth>
                 <Post />
               </RequireAuth>
-            }
-          />
+            }/>
+
+          <Route path="/posts/new" element={
+            <RequireAuth>
+              <CreatePost />
+            </RequireAuth>
+          } />
+
+          <Route path="/logout" element={
+            <RequireAuth>
+              <Logout />
+            </RequireAuth>
+          } />
         </Route>
       </Routes>
       <Outlet />

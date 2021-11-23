@@ -1,31 +1,47 @@
 import React, { useState } from 'react';
-import { fakeAuthProvider } from './auth';
-
-let AuthContext = React.createContext(null);
+import { AuthContext } from './authContext';
+import Cookies from 'universal-cookie';
 
 function AuthProvider({children}) {
-  let [user, setUser] = useState(null);
+  const cookies = new Cookies();
+  const userCookie = cookies.get('rede_social_opet.user');
+  const defaultValue = userCookie ? userCookie : null;
 
-  let signin = (newUser, callback) => {
-    localStorage.setItem('rede_social_opet.user', JSON.stringify(newUser));
-    setUser(newUser);
-    return callback;
-    // return fakeAuthProvider.signin(() => {
-    //   setUser(newUser);
-    //   callback();
-    // });
-  };
+  const [user, setUser] = useState(defaultValue);
 
-  let signout = (callback) => {
-    return fakeAuthProvider.signout(() => {
-      setUser(null);
-      callback();
+  const signin = async (googleData, callback) => {
+    const res = await fetch('http://localhost:3001/api/v1/auth/google', {
+      method: 'POST',
+      body: JSON.stringify({ token: googleData.tokenId }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
+
+    if (!res.ok) {
+      const error = new Error("Houve um erro ao autenticar o usuário.");
+      callback(error);
+      return;
+    }
+
+    const student = await res.json();
+    const expirationDate = new Date();
+    
+    expirationDate.setHours(expirationDate.getHours() + 1);
+    cookies.set('rede_social_opet.user', student, { expires: expirationDate });
+    
+    setUser(student);
+    callback(null);
   };
 
-  let value = { user, signin, signout };
+  const signout = (callback) => {
+    cookies.remove('rede_social_opet.user')
+    callback();
+  };
+
+  const value = { user, signin, signout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export { AuthProvider, AuthContext} ;
+export { AuthProvider };

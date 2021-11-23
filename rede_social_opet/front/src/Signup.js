@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
 import Client from './api';
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from 'react-google-login';
-import { AuthContext } from './AuthProvider';
+import { AuthContext } from './authContext';
 
 function Signup() {
-  const auth = React.useContext(AuthContext);
+  const auth = useContext(AuthContext);
   const [validated, setValidated] = useState(false);
-  const client = new Client()
+  const client = new Client();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -52,8 +52,9 @@ function Signup() {
     }
 
     const student = await res.json();
-    auth.signin(student);
-    navigate('/posts');
+    auth.signin(student, () => {
+      navigate('/posts');
+    });
   }
 
   return (
