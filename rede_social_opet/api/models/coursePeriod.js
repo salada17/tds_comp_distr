@@ -1,5 +1,7 @@
 import sequelize from 'sequelize';
 import { db } from '../db.js';
+import { Student } from './student.js';
+import { Course } from './course.js';
 
 const { DataTypes, Model } = sequelize;
 

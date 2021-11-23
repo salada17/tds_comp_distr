@@ -1,5 +1,6 @@
 import authRoutes from './auth.js';
 import postRoutes from './post.js';
+import courseRoutes from './courses.js';
 
 function routes(router) {
   router.get('/', (req, res) => {
@@ -8,6 +9,7 @@ function routes(router) {
 
   authRoutes(router);
   postRoutes(router);
+  courseRoutes(router);
 
   return router;
 }

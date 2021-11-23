@@ -114,7 +114,10 @@ function googleSignin(router) {
           registration_code: registrationCode,
           token
         });
-      }).catch(err => res.status(500).json({}));
+      }).catch(err => {
+        console.log('error while upserting student', err);
+        res.status(500).json({});
+      });
     } catch (err) {
       console.log('error while validating auth with google', err);
 

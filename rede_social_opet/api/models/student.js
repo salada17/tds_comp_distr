@@ -1,6 +1,7 @@
 import sequelize from 'sequelize';
 import { db } from '../db.js';
 import bcrypt from 'bcrypt';
+import { CoursePeriod } from './coursePeriod.js';
 
 const { DataTypes, Model } = sequelize;
 
@@ -43,5 +44,7 @@ Student.init({
 Student.prototype.validPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 }
+
+Student.belongsToMany(CoursePeriod, { through: 'students_course_periods' });
 
 export { Student };
