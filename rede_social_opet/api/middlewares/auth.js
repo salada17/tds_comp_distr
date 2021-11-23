@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
 import { Student } from '../models/student.js';
 
@@ -10,9 +9,9 @@ const jwtMiddleware = async (req, res, next) => {
   const token = req.headers['x-access-token'];
   
   if (!token) {
-    return res.status(401).json({
+    return res.status(403).json({
       errors: true,
-      message: 'Unauthorized'
+      message: 'Forbidden'
     });
   }
 
@@ -32,19 +31,11 @@ const jwtMiddleware = async (req, res, next) => {
     next();
   } catch (err) {
     console.log('got an error while validating google token', err);
+    return res.status(401).json({
+      errors: true,
+      message: 'Unauthorized'
+    });
   }
-
-  jwt.verify(token, process.env.SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(500).json({
-        errors: true,
-        message: 'Failed to authenticate user'
-      });
-    }
-
-    res.locals.studentId = decoded.id;
-    next();
-  });
 }
 
 export default jwtMiddleware;
